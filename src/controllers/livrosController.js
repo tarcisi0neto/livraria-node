@@ -5,7 +5,8 @@ class LivroController {
     // LISTA TODOS OS LIVROS;
     static listarLivros = (req, res) => {
         livros.find()
-            .populate('autor')
+            .populate('autor','nome')
+            .populate('editora', 'nomeFantasia')
             .exec((err, livros) => {
                 if(err) {
                     console.error('Erro ao buscar livros:', err);
@@ -46,6 +47,7 @@ class LivroController {
         
         livros.findById(id)
             .populate('autor', 'nome')
+            .populate('editora', 'nomeFantasia')
             .exec((err, livro) => {
                 if (err) {
                     res.status(400).send({message: `${err.message} - id não localizado`});
@@ -54,6 +56,20 @@ class LivroController {
                     res.status(200).send(livro);
                 }
             });
+    }
+
+
+    // BUSCAR LIVRO POR EDITORA;
+    static listarLivrosByEditora = (req, res) => {
+        const editora = req.query.editora;
+
+        livros.find({'editora': editora}, {}, (err, livros) => {
+            if (err) {
+                res.status(500).send({message: `${err.message} - Nenhum livro está associado a essa editora`});
+            } else {    
+                res.status(200).send(livros);
+            }
+        })
     }
 
     // DELETA LIVRO POR ID
