@@ -16,7 +16,7 @@ class AutoresController {
     // CRIA AUTOR;
     static criaAutor = (req, res) => {
         let autor = new autores(req.body);
-        autores.save((err) => {
+        autor.save((err) => {
             if(err) {
                 res.status(500).json({message: `${err.message} - Falha ao cadastrar autor`});
             } else {
