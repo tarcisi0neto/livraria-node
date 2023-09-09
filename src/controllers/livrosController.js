@@ -1,6 +1,5 @@
 import livros from "../models/Livro.js";
 
-
 class LivroController {
 
     // LISTA TODOS OS LIVROS;
@@ -39,7 +38,7 @@ class LivroController {
         })
     }
     
-    // BUSCA LIVRO POR ID
+    // BUSCA LIVRO POR ID;
     static buscaLivroId = (req, res) => {
         const id = req.params.id;
         
@@ -64,7 +63,6 @@ class LivroController {
             }
         })
     }
-
 }
 
 export default LivroController
